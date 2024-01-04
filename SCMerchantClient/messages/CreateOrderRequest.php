@@ -8,13 +8,15 @@ class CreateOrderRequest
 	private $receiveCurrency;
 	private $receiveAmount;
 	private $description;
-	private $culture;
 	private $callbackUrl;
 	private $successUrl;
 	private $failureUrl;
 	private $payerName;
 	private $payerSurname;
 	private $payerEmail;
+	private $payerDateOfBirth;
+	private $lang;
+	private $payNetworkName;
 
 	/**
 	 * @param $orderId
@@ -31,7 +33,7 @@ class CreateOrderRequest
 	 * @param $payerSurname
 	 * @param $payerEmail
 	 */
-	function __construct($orderId, $payCurrency, $payAmount, $receiveCurrency, $receiveAmount, $description, $culture, $callbackUrl, $successUrl, $failureUrl, $payerName = null, $payerSurname = null, $payerEmail = null)
+	function __construct($orderId, $payCurrency, $payAmount, $receiveCurrency, $receiveAmount, $description, $callbackUrl, $successUrl, $failureUrl, $lang, $payNetworkName, $payerName = null, $payerSurname = null, $payerEmail = null, $payerDateOfBirth = null)
 	{
 		$this->orderId = $orderId;
 		$this->payCurrency = $payCurrency;
@@ -39,13 +41,15 @@ class CreateOrderRequest
 		$this->receiveCurrency = $receiveCurrency;
 		$this->receiveAmount = $receiveAmount;
 		$this->description = $description;
-		$this->culture = $culture;
 		$this->callbackUrl = $callbackUrl;
 		$this->successUrl = $successUrl;
 		$this->failureUrl = $failureUrl;
 		$this->payerName = $payerName;
 		$this->payerSurname = $payerSurname;
 		$this->payerEmail = $payerEmail;
+		$this->payerDateOfBirth = $payerDateOfBirth;
+		$this->lang = $lang;
+		$this->payNetworkName = $payNetworkName;
 	}
 
 	/**
@@ -95,14 +99,6 @@ class CreateOrderRequest
 	{
 		return $this->description == null ? '' : $this->description;
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getCulture()
-	{
-		return $this->culture == null ? '' : $this->culture;
-	}
 	
 	/**
 	 * @return string
@@ -151,4 +147,29 @@ class CreateOrderRequest
 	{
 		return $this->payerEmail == null ? '' : $this->payerEmail;
 	}
+
+	/**
+	 * @return string
+	 */	
+	public function getPayerDateOfBirth()
+	{
+		return $this->payerDateOfBirth == null ? '' : $this->payerDateOfBirth;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getlang()
+	{
+		return $this->lang == null ? '' : $this->lang;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPayNetworkName()
+	{
+		return $this->payNetworkName == null ? '' : $this->payNetworkName;
+	}
+
 }

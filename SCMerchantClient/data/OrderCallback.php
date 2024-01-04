@@ -21,7 +21,7 @@ class OrderCallback
 	private $status;
 	private $sign;
 
-	function __construct($userId, $merchantApiId, $merchantId, $apiId, $orderId, $payCurrency, $payAmount, $receiveCurrency, $receiveAmount, $receivedAmount, $description, $orderRequestId, $status, $sign, $payerName, $payerSurname, $payerEmail)
+	function __construct($userId, $merchantApiId, $merchantId, $apiId, $orderId, $payCurrency, $payAmount, $receiveCurrency, $receiveAmount, $receivedAmount, $description, $orderRequestId, $status, $sign, $payerName = null, $payerSurname = null, $payerEmail = null)
 	{
 		$this->$userId = $userId;
 		$this->$merchantApiId = $merchantApiId;
@@ -34,12 +34,12 @@ class OrderCallback
 		$this->receiveAmount = $receiveAmount;
 		$this->receivedAmount = $receivedAmount;
 		$this->description = $description;
-		$this->payerName = $payerName;
-		$this->payerSurname = $payerSurname;
-		$this->payerEmail = $payerEmail;
 		$this->orderRequestId = $orderRequestId;
 		$this->status = $status;
 		$this->sign = $sign;
+		$this->payerName = $payerName;
+		$this->payerSurname = $payerSurname;
+		$this->payerEmail = $payerEmail;
 	}
 
 	/**
