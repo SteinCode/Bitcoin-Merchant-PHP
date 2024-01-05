@@ -4,7 +4,7 @@
 const SC_API_URL = 'https://pp.spectrocoin.com/api/merchant';
 
 const SC_MERCHANT_ID = "4b2b1ec1-8b23-4893-bd2a-2854ef8b5565"; // Merchant ID
-const SC_MERCHANT_API_ID = "6519e0ec-6700-49be-88e2-231afb1bf75b"; // Project (API) ID
+const SC_MERCHANT_API_ID = "9df41ece-b41e-4ba9-bc99-cd3f80a6d08b"; // Project (API) ID
 
 //gabijos pp
 // const SC_MERCHANT_ID = "1e98c2eb-6cea-495c-a52b-2ef3238ffca2"; // Merchant ID
