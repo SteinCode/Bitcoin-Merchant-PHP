@@ -27,3 +27,64 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+/* FORM */
+
+.form-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.form-row {
+  display: flex;
+  align-items: start;
+  margin-bottom: 10px;
+}
+
+.form-label {
+  flex-basis: 20%;
+  text-align: left;
+  margin-right: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.form-input,
+.form-textarea {
+  flex-grow: 1; /* Input/Textarea takes the remaining space */
+}
+
+.form-textarea textarea {
+  font-size: 12px;
+  width: 100%;
+  max-width: 310px;
+  min-height: 120px;
+  resize: vertical; /* Only allow vertical resizing */
+  max-height: 260px; /* Maximum height when resized */
+}
+
+.form-input input {
+  font-size: 12px;
+  width: 100%;
+}
+
+.save_button {
+  text-transform: capitalize;
+  align-self: center;
+  align-items: center;
+  background: #4972f4;
+  background-color: rgb(73, 114, 244);
+  border: 2px solid #4972f4;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  height: 20px;
+  justify-content: center;
+  min-width: 100px;
+  outline: none;
+  padding: 12px 25px;
+  text-decoration: none;
+  /* margin-bottom: 8px; */
+}
