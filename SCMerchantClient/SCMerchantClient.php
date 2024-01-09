@@ -85,7 +85,7 @@ class SCMerchantClient
 		printToBrowserConsole($payload);
 
 		$jsonPayload = json_encode($payload);
-
+		writeToLog("Payload: " . $jsonPayload);
 
         try {
             $response = $this->client->request('POST', $this->merchantApiUrl . '/createOrder', [
