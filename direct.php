@@ -29,18 +29,21 @@ $createOrderRequest = new CreateOrderRequest($orderId, $payCurrency, $payAmount,
 $createOrderResponse = $scMerchantClient->createOrder($createOrderRequest);
 
 if ($createOrderResponse instanceof ApiError) {
-	echo 'Error occurred. ' . $createOrderResponse->getCode() . ': ' . $createOrderResponse->getMessage();
+    echo 'Error occurred. ' . $createOrderResponse->getCode() . ': ' . $createOrderResponse->getMessage();
 } else if ($createOrderResponse instanceof CreateOrderResponse) {
-	echo 'Order Id: '.$createOrderResponse->getOrderId().'<br/>';
-	echo 'Order request Id: '.$createOrderResponse->getOrderRequestId().'<br/>';
-	echo 'Deposit address: '.$createOrderResponse->getDepositAddress().'<br/>';
-	echo 'Pay: '.$createOrderResponse->getPayAmount().' '.$createOrderResponse->getPayCurrency().'<br/>';
-	echo '<img src="//chart.googleapis.com/chart?chs=160x160&chld=M|0&cht=qr&chl=bitcoin:'.$createOrderResponse->getDepositAddress().'?amount='.$createOrderResponse->getPayAmount().'" alt="Bitcoin qr"/><br/>';
-	echo 'Receive: '.$createOrderResponse->getReceiveAmount().' '.$createOrderResponse->getReceiveCurrency().'<br/>';
-	echo 'Valid for: <span id="pageTimer"></span><script type="application/javascript">clockdown('.$createOrderResponse->getValidUntil().')</script><br/>';
+    echo 'Order Id: ' . $createOrderResponse->getOrderId() . '<br/>';
+    echo 'Pre Order Id: ' . $createOrderResponse->getPreOrderId() . '<br/>';
+    echo 'Deposit address: ' . $createOrderResponse->getDepositAddress() . '<br/>';
+    echo 'Pay: ' . $createOrderResponse->getPayAmount() . ' ' . $createOrderResponse->getPayCurrency() . '<br/>';
+    echo '<img src="//chart.googleapis.com/chart?chs=160x160&chld=M|0&cht=qr&chl=' . strtolower($createOrderResponse->getPayCurrency()) . ':' . $createOrderResponse->getDepositAddress() . '?amount=' . $createOrderResponse->getPayAmount() . '" alt="QR Code"/><br/>';
+    echo 'Receive: ' . $createOrderResponse->getReceiveAmount() . ' ' . $createOrderResponse->getReceiveCurrency() . '<br/>';
+    echo 'Valid until: ' . $createOrderResponse->getValidUntil() . '<br/>';
+    // Assuming you have a JavaScript function 'countdown' to handle the countdown timer
+    echo '<script type="application/javascript">countdown("' . $createOrderResponse->getValidUntil() . '")</script><br/>';
 } else {
-	echo 'error';
+    echo 'Error';
 }
+
 
 ?>
 
