@@ -5,7 +5,7 @@
 include_once('constants.php');
 include_once('SCMerchantClient/SCMerchantClient.php');
 
-$orderId = "Order005";// "Order005";
+$orderId = "Order" . rand(1, 10000);// "Orderxxx";
 $payCurrency = 'BTC'; // Customer pay amount calculation currency
 $payAmount = null;//0.00025; // Customer pay amount in calculation currency
 $receiveCurrency = 'GBP'; // Merchant receive amount calculation currency

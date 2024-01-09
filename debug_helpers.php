@@ -14,7 +14,7 @@ function printToBrowserConsole($data) {
 }
 
 function writeToLog($message, $messageType = 'ERROR') {
-    $logFile = __DIR__ . '/app_log.txt';
+    $logFile = __DIR__ . '/log.txt';
 
     switch ($messageType) {
         case 'INFO':

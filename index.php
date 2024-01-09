@@ -13,13 +13,13 @@
 			<div class="form-row">
 				<label class="form-label" for="project_id">Project ID:</label>
 				<div class="form-input">
-					<input type="text" id="project_id" name="project_id" onchange="saveCredentials()">
+					<input type="text" id="project_id" name="project_id">
 				</div>
 			</div>
 			<div class="form-row">
 				<label class="form-label" for="private_key">Private Key:</label>
 				<div class="form-textarea">
-					<textarea id="private_key" name="private_key" onchange="saveCredentials()"></textarea>
+					<textarea id="private_key" name="private_key"></textarea>
 				</div>
 			</div>
 			<div class="form-row">

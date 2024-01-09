@@ -10,14 +10,14 @@
 include_once('constants.php');
 include_once('SCMerchantClient/SCMerchantClient.php');
 
-$orderId = "Order005";// "Order005";
+$orderId = "Order" . rand(1, 10000);// "Orderxxx";
 $payCurrency = 'BTC'; // Customer pay amount calculation currency
-$payAmount = null;//0.00025; // Customer pay amount in calculation currency
+$payAmount = 9.99;//0.00025; // Customer pay amount in calculation currency
 $receiveCurrency = 'GBP'; // Merchant receive amount calculation currency
 $receiveAmount = 9.99; // Merchant receive amount in calculation currency
 $description = "Order 'Order001' at www.merchant.com"; // Description of the order.
 $lang = "en"; // Language or culture setting (e.g., English).
-$payNetworkName = "bitcoin"; // 
+$payNetworkName = "BTC"; // 
 $payerName = "Name"; // OPTIONAL - First name of the payer/customer.
 $payerSurname = "Surname"; //OPTIONAL - Last name of the payer/customer.
 $payerEmail = "your-email@gmail.com"; // OPTIONAL - Email address of the payer/customer.

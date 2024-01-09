@@ -82,10 +82,9 @@ class SCMerchantClient
 			"successUrl" => $request->getSuccessUrl(),
 		);
 
-		printToBrowserConsole($payload);
-
 		$jsonPayload = json_encode($payload);
-		writeToLog("Payload: " . $jsonPayload);
+
+		printToBrowserConsole($payload);
 
         try {
             $response = $this->client->request('POST', $this->merchantApiUrl . '/createOrder', [
@@ -114,7 +113,6 @@ class SCMerchantClient
                 }
             }
         } catch (GuzzleException $e) {
-            echo "Error code: " . $e->getCode() . "\n";
             return new ApiError($e->getCode(), $e->getMessage());
         }
 		echo "Invalid Response: " . "No valid response received.". "\n";

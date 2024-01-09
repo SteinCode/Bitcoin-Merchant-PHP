@@ -1,10 +1,10 @@
 <?php
 // const SC_API_URL = 'https://spectrocoin.com/api/merchant';
 
-const SC_API_URL = 'https://pp.spectrocoin.com/api/merchant';
+const SC_API_URL = 'https://spectrocoin.com/api/merchant';
 
-const SC_MERCHANT_ID = "4b2b1ec1-8b23-4893-bd2a-2854ef8b5565"; // Merchant ID
-const SC_MERCHANT_API_ID = "9df41ece-b41e-4ba9-bc99-cd3f80a6d08b"; // Project (API) ID
+const SC_MERCHANT_ID = "5b629e21-4d94-47e1-b643-b65e5be11057"; // Merchant ID
+const SC_MERCHANT_API_ID = "bbbd2421-2c46-44f1-932a-0eecb030d8b3"; // Project (API) ID
 
 //gabijos pp
 // const SC_MERCHANT_ID = "1e98c2eb-6cea-495c-a52b-2ef3238ffca2"; // Merchant ID
