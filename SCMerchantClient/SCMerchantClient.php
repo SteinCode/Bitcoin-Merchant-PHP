@@ -15,6 +15,7 @@ include_once('data/OrderStatusEnum.php');
 include_once('data/OrderCallback.php');
 include_once('messages/CreateOrderRequest.php');
 include_once('messages/CreateOrderResponse.php');
+include_once('./debug_helpers.php');
 
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -81,9 +82,9 @@ class SCMerchantClient
 			"successUrl" => $request->getSuccessUrl(),
 		);
 
-		$jsonPayload = json_encode($payload);
+		printToBrowserConsole($payload);
 
-		print_r(json_encode($jsonPayload, JSON_PRETTY_PRINT));
+		$jsonPayload = json_encode($payload);
 
 
         try {
