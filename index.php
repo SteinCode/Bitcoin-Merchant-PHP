@@ -4,12 +4,11 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+	<div class = "logo-container"> <a class = "logo-url" href="https://spectrocoin.com" target="_blank"> <img class = "logo-img" src = "spectrocoin-logo.svg"></a></div>
 	<div class = "main-section">
 		<p>
 			This is a sample of <a href="https://spectrocoin.com" target="_blank">SpectroCoin.com</a> Merchant API usage.
 		</p>
-
-		<!-- Form for entering credentials -->
 		<form method="post" action="saveCredentials.php" class="form-container">
 			<div class="form-row">
 				<label class="form-label" for="project_id">Project ID:</label>

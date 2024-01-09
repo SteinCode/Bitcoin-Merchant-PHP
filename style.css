@@ -8,6 +8,7 @@ body {
   padding: 0;
   background: #f5f8ff;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -80,11 +81,20 @@ body {
   color: #fff;
   font-size: 16px;
   font-weight: 500;
-  height: 20px;
   justify-content: center;
-  min-width: 100px;
   outline: none;
-  padding: 12px 25px;
+  padding: 8px 20px;
   text-decoration: none;
-  /* margin-bottom: 8px; */
+}
+
+ol {
+  padding: 0px;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.logo-img {
+  min-width: 200px;
 }
