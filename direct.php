@@ -24,7 +24,7 @@ $payerEmail = "your-email@gmail.com"; // OPTIONAL - Email address of the payer/c
 $payerDateOfBirth = "1980-01-01"; // OPTIONAL - Date of birth of the payer/customer.
 
 
-$scMerchantClient = new SCMerchantClient(SC_API_URL, SC_MERCHANT_ID, SC_MERCHANT_API_ID);
+$scMerchantClient = new SCMerchantClient(SC_API_URL, PROJECT_ID);
 
 $createOrderRequest = new CreateOrderRequest($orderId, $payCurrency, $payAmount, $receiveCurrency, $receiveAmount, $description, SC_MERCHANT_ORDER_CALLBACK_URL, SC_MERCHANT_ORDER_SUCCESS_URL, SC_MERCHANT_ORDER_FAILURE_URL, $lang, $payNetworkName, $payerName, $payerSurname, $payerEmail, $payerDateOfBirth);
 

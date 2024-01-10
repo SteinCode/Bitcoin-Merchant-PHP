@@ -25,39 +25,24 @@ class SCMerchantClient
 {
 
 	private $merchantApiUrl;
-	private $privateMerchantCertLocation;
-	private $publicSpectroCoinCertLocation;
-
-	private $merchantId;
-	private $apiId;
+	private $projectId;
 	private $debug;
 
-	private $privateMerchantKey;
-
 	protected $client;
+
 	/**
 	 * @param $merchantApiUrl
-	 * @param $merchantId
-	 * @param $apiId
+	 * @param $projectId
 	 * @param bool $debug
 	 */
-	function __construct($merchantApiUrl, $merchantId, $apiId, $debug = false)
+	function __construct($merchantApiUrl, $projectId, $debug = false)
 	{
-		$this->privateMerchantCertLocation = dirname(__FILE__) . '/../cert/mprivate.pem';
-		$this->publicSpectroCoinCertLocation = dirname(__FILE__) . '/../cert/mpublic.pem';
 		$this->merchantApiUrl = $merchantApiUrl;
-		$this->merchantId = $merchantId;
-		$this->apiId = $apiId;
+		$this->projectId = $projectId;
 		$this->debug = $debug;
 		$this->client = new Client();
 	}
 
-	/**
-	 * @param $privateKey
-	 */
-	public function setPrivateMerchantKey($privateKey) {
-		$this->privateMerchantKey = $privateKey;
-	}
 	/**
 	 * @param CreateOrderRequest $request
 	 * @return ApiError|CreateOrderResponse
@@ -76,7 +61,7 @@ class SCMerchantClient
 			"payerEmail" => $request->getPayerEmail(),
 			"payerName" => $request->getPayerName(),
 			"payerSurname" => $request->getPayerSurname(),
-			"projectId" => $this->apiId,
+			"projectId" => $this->projectId,
 			"receiveAmount" => $request->getReceiveAmount(),
 			"receiveCurrency" => $request->getReceiveCurrency(),
 			"successUrl" => $request->getSuccessUrl(),
@@ -123,19 +108,6 @@ class SCMerchantClient
         return new ApiError('Invalid Response', 'No valid response received.');
 	}
 
-
-
-
-	private function generateSignature($data)
-	{
-		$privateKey = $this->privateMerchantKey != null ? $this->privateMerchantKey : file_get_contents($this->privateMerchantCertLocation);
-		$pkeyid = openssl_pkey_get_private($privateKey);
-
-		$s = openssl_sign($data, $signature, $pkeyid, OPENSSL_ALGO_SHA1);
-		$encodedSignature = base64_encode($signature);
-
-		return $encodedSignature;
-	}
 
 	/**
 	 * @param $r $_REQUEST
@@ -189,20 +161,4 @@ class SCMerchantClient
 
 		return $valid;
 	}
-
-	/**
-	 * @param $data
-	 * @param $signature
-	 * @return int
-	 */
-	private function validateSignature($data, $signature)
-	{
-		$sig = base64_decode($signature);
-		$publicKey = file_get_contents($this->publicSpectroCoinCertLocation);
-		$public_key_pem = openssl_pkey_get_public($publicKey);
-		$r = openssl_verify($data, $sig, $public_key_pem, OPENSSL_ALGO_SHA1);
-
-		return $r;
-	}
-
 }
