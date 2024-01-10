@@ -10,7 +10,7 @@ $payCurrency = 'BTC'; // Customer pay amount calculation currency
 $payAmount = null;//0.00025; // Customer pay amount in calculation currency
 $receiveCurrency = 'GBP'; // Merchant receive amount calculation currency
 $receiveAmount = 9.99; // Merchant receive amount in calculation currency
-$description = "Order 'Order001' at www.merchant.com"; // Description of the order.
+$description = "Your specified payment description"; // Description of the order.
 $lang = "en"; // Language or culture setting (e.g., English).
 $payNetworkName = "bitcoin"; // Language or culture setting (e.g., English).
 $payerName = "Name"; // OPTIONAL - First name of the payer/customer.
@@ -20,7 +20,9 @@ $payerDateOfBirth = "1980-01-01"; // OPTIONAL - Date of birth of the payer/custo
 
 
 $scMerchantClient = new SCMerchantClient(SC_API_URL, SC_MERCHANT_ID, SC_MERCHANT_API_ID);
+
 $createOrderRequest = new CreateOrderRequest($orderId, $payCurrency, $payAmount, $receiveCurrency, $receiveAmount, $description, SC_MERCHANT_ORDER_CALLBACK_URL, SC_MERCHANT_ORDER_SUCCESS_URL, SC_MERCHANT_ORDER_FAILURE_URL, $lang, $payNetworkName, $payerName, $payerSurname, $payerEmail, $payerDateOfBirth);
+
 $createOrderResponse = $scMerchantClient->createOrder($createOrderRequest);
 
 if ($createOrderResponse instanceof ApiError) {

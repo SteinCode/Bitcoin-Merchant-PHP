@@ -18,19 +18,19 @@ class CreateOrderResponse
 	/**
 	 * @param $data
 	 */
-	function __construct($data)
+	function __construct($depositAddress, $memo, $orderId, $payAmount, $payCurrency, $payNetworkName, $preOrderId, $receiveAmount, $receiveCurrency, $redirectUrl, $validUntil)
 	{
-		$this->depositAddress = $data->depositAddress;
-		$this->memo = $data->memo;
-		$this->orderId = $data->orderId;
-		$this->payAmount = $data->payAmount;
-		$this->payCurrency = $data->payCurrency;
-		$this->payNetworkName = $data->payNetworkName;
-		$this->preOrderId = $data->preOrderId;
-		$this->receiveAmount = $data->receiveAmount;
-		$this->receiveCurrency = $data->receiveCurrency;
-		$this->redirectUrl = $data->redirectUrl;
-		$this->validUntil = $data->validUntil;
+		$this->depositAddress = $depositAddress;
+		$this->memo = $memo;
+		$this->orderId = $orderId;
+		$this->payAmount = $payAmount;
+		$this->payCurrency = $payCurrency;
+		$this->payNetworkName = $payNetworkName;
+		$this->preOrderId = $preOrderId;
+		$this->receiveAmount = $receiveAmount;
+		$this->receiveCurrency = $receiveCurrency;
+		$this->redirectUrl = $redirectUrl;
+		$this->validUntil = $validUntil;
 	}
 	
 

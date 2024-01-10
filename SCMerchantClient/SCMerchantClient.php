@@ -94,13 +94,26 @@ class SCMerchantClient
 
             $statusCode = $response->getStatusCode();
             $body = json_decode($response->getBody()->getContents(), true); // true converts to associative array
-
+			printToBrowserConsole($body);
 
             if ($statusCode == 200 && $body != null) {
                 if (is_array($body) && count($body) > 0 && isset($body[0]->code)) {
                     return new ApiError($body[0]->code, $body[0]->message);
                 } else {
-					return new CreateOrderResponse($body);
+
+					return new CreateOrderResponse(
+						$body['depositAddress'],
+						$body['memo'],
+						$body['orderId'],
+						$body['payAmount'],
+						$body['payCurrency'],
+						$body['payNetworkName'],
+						$body['preOrderId'],
+						$body['receiveAmount'],
+						$body['receiveCurrency'],
+						$body['redirectUrl'],
+						$body['validUntil']
+					);
                 }
             }
         } catch (GuzzleException $e) {
