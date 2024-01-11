@@ -1,6 +1,10 @@
 <?php
 
 
+/**
+ * Prints data to browser console
+ * @param $data
+ */
 function printToBrowserConsole($data) {
     if (is_array($data)) {
         $encodedData = json_encode($data);
@@ -13,7 +17,12 @@ function printToBrowserConsole($data) {
     echo $script;
 }
 
-function writeToLog($message, $messageType = 'ERROR') {
+/**
+ * Logs messages log.txt file in plugin directory
+ * @param $message
+ * @param string $messageType | INFO(default), DEBUG, WARNING, NOTICE, ERROR
+*/
+function writeToLog($message, $messageType = 'INFO') {
     $logFile = __DIR__ . '/log.txt';
 
     switch ($messageType) {
@@ -35,6 +44,14 @@ function writeToLog($message, $messageType = 'ERROR') {
     }
 
     $timestamp = date('Y-m-d H:i:s');
-    $formattedMessage = PHP_EOL . "[$timestamp] [$messagePrefix] $message" . PHP_EOL;
+    $formattedMessage = PHP_EOL . "[$timestamp] [$messagePrefix] ";
+
+    if (is_array($message)) {
+        $encodedMessage = json_encode($message);
+        $formattedMessage .= "Array (printed as JSON): $encodedMessage" . PHP_EOL;
+    } else {
+        $formattedMessage .= $message . PHP_EOL;
+    }
+
     file_put_contents($logFile, $formattedMessage, FILE_APPEND | LOCK_EX);
 }

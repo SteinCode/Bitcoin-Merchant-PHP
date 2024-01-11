@@ -69,8 +69,6 @@ class SCMerchantClient
 
 		$jsonPayload = json_encode($payload);
 
-		printToBrowserConsole($payload);
-
         try {
             $response = $this->client->request('POST', $this->merchantApiUrl . '/createOrder', [
                 RequestOptions::HEADERS => ['Content-Type' => 'application/json'],
@@ -78,14 +76,12 @@ class SCMerchantClient
             ]);
 
             $statusCode = $response->getStatusCode();
-            $body = json_decode($response->getBody()->getContents(), true); // true converts to associative array
-			printToBrowserConsole($body);
+            $body = json_decode($response->getBody()->getContents(), true); //
 
             if ($statusCode == 200 && $body != null) {
                 if (is_array($body) && count($body) > 0 && isset($body[0]->code)) {
                     return new ApiError($body[0]->code, $body[0]->message);
                 } else {
-
 					return new CreateOrderResponse(
 						$body['depositAddress'],
 						$body['memo'],
@@ -113,15 +109,9 @@ class SCMerchantClient
 	 * @param $r $_REQUEST
 	 * @return OrderCallback|null
 	 */
-	public function parseCreateOrderCallback($r)
-	{
-		$result = null;
-
-		if ($r != null && isset($r['userId'], $r['merchantApiId'], $r['merchantId'], $r['apiId'], $r['orderId'], $r['payCurrency'], $r['payAmount'], $r['receiveCurrency'], $r['receiveAmount'], $r['receivedAmount'], $r['description'], $r['orderRequestId'], $r['status'], $r['sign'])) {
-			$result = new OrderCallback($r['userId'], $r['merchantApiId'], $r['merchantId'], $r['apiId'], $r['orderId'], $r['payCurrency'], $r['payAmount'], $r['receiveCurrency'], $r['receiveAmount'], $r['receivedAmount'], $r['description'], $r['orderRequestId'], $r['status'], $r['sign']);
-		}
-
-		return $result;
+	public function parseCreateOrderCallback($r){
+		$callback = new OrderCallback($r['userId'], $r['merchantApiId'], $r['merchantId'], $r['apiId'], $r['orderId'], $r['payCurrency'], $r['payAmount'], $r['receiveCurrency'], $r['receiveAmount'], $r['receivedAmount'], $r['description'], $r['orderRequestId'], $r['status'], $r['sign']);
+		return $callback;
 	}
 
 	/**
@@ -161,4 +151,5 @@ class SCMerchantClient
 
 		return $valid;
 	}
+
 }

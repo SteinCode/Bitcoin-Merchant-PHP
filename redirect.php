@@ -5,21 +5,25 @@
 include_once('constants.php');
 include_once('SCMerchantClient/SCMerchantClient.php');
 
-$orderId = "Order" . rand(1, 10000);// "Orderxxx";
-$payCurrency = 'BTC'; // Customer pay amount calculation currency
-$payAmount = null;//0.00025; // Customer pay amount in calculation currency
-$receiveCurrency = 'GBP'; // Merchant receive amount calculation currency
-$receiveAmount = 9.99; // Merchant receive amount in calculation currency
-$description = "Your specified payment description"; // Description of the order.
-$lang = "en"; // Language or culture setting (e.g., English).
-$payNetworkName = "bitcoin"; // Language or culture setting (e.g., English).
-$payerName = "Name"; // OPTIONAL - First name of the payer/customer.
-$payerSurname = "Surname"; //OPTIONAL - Last name of the payer/customer.
-$payerEmail = "your-email@gmail.com"; // OPTIONAL - Email address of the payer/customer.
-$payerDateOfBirth = "1980-01-01"; // OPTIONAL - Date of birth of the payer/customer.
 
+$jsonData = file_get_contents('createOrder_data.json'); // Update the path to your JSON file
+$data = json_decode($jsonData, true); // Convert JSON string to PHP array
 
-$scMerchantClient = new SCMerchantClient(SC_API_URL, PROJECT_ID);
+$project_id = PROJECT_ID;
+$orderId = "Order" . rand(1, 10000);// "Orderxxx - order id must be unique";
+$payCurrency = $data['payCurrency'];
+$payAmount = $data['payAmount'];
+$receiveCurrency = $data['receiveCurrency'];
+$receiveAmount = $data['receiveAmount'];
+$description = $data['description'];
+$lang = $data['lang'];
+$payNetworkName = $data['payNetworkName'];
+$payerName = $data['payerName'];
+$payerSurname = $data['payerSurname'];
+$payerEmail = $data['payerEmail'];
+$payerDateOfBirth = $data['payerDateOfBirth'];
+
+$scMerchantClient = new SCMerchantClient(SC_API_URL, $project_id);
 
 $createOrderRequest = new CreateOrderRequest($orderId, $payCurrency, $payAmount, $receiveCurrency, $receiveAmount, $description, SC_MERCHANT_ORDER_CALLBACK_URL, SC_MERCHANT_ORDER_SUCCESS_URL, SC_MERCHANT_ORDER_FAILURE_URL, $lang, $payNetworkName, $payerName, $payerSurname, $payerEmail, $payerDateOfBirth);
 
