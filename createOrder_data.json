@@ -1,15 +1,14 @@
 {
   "project_id": "123456",
-  "orderId": "",
-  "payCurrency": "BTC",
-  "payAmount": null,
+  "payCurrency": "ETH",
+  "payAmount": "0.0003468",
   "receiveCurrency": "GBP",
-  "receiveAmount": 9.99,
+  "receiveAmount": "9.99",
   "description": "Your specified payment description",
   "lang": "en",
   "payNetworkName": "bitcoin",
-  "payerName": "",
-  "payerSurname": "",
-  "payerEmail": "",
-  "payerDateOfBirth": ""
+  "payerName": "Name",
+  "payerSurname": "Surname",
+  "payerEmail": "email@example.com",
+  "payerDateOfBirth": "1980-01-01"
 }

@@ -56,10 +56,10 @@ body {
   flex-grow: 1; /* Input/Textarea takes the remaining space */
 }
 
-.form-textarea textarea {
+textarea {
   font-size: 12px;
   width: 100%;
-  min-height: 120px;
+  min-height: 70px;
   resize: vertical; /* Only allow vertical resizing */
   max-height: 260px; /* Maximum height when resized */
 }

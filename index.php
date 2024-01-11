@@ -1,3 +1,18 @@
+<?php
+
+// Assuming 'data.json' is your JSON file
+$jsonData = file_get_contents('createOrder_data.json');
+$data = json_decode($jsonData, true);
+
+// Check if the form has been submitted
+if (isset($_GET['action']) && $_GET['action'] == 'getFormData') {
+    header('Content-Type: application/json');
+    $jsonData = file_get_contents('createOrder_data.json');
+    echo $jsonData;
+    exit();
+}
+?>
+
 <html>
 <head>
     <title>Sample Merchant client</title>
@@ -27,7 +42,7 @@
             </div>
             <div class="form-row">
                 <label class="form-label" for="payAmount">Pay Amount:</label>
-                <input type="number" id="payAmount" name="payAmount" class="form-input">
+                <input id="payAmount" name="payAmount" class="form-input">
             </div>
             <div class="form-row">
                 <label class="form-label" for="receiveCurrency">Receive Currency:</label>
@@ -39,7 +54,7 @@
             </div>
             <div class="form-row">
                 <label class="form-label" for="receiveAmount">Receive Amount:</label>
-                <input type="number" id="receiveAmount" name="receiveAmount" class="form-input">
+                <input id="receiveAmount" name="receiveAmount" class="form-input">
             </div>
             <div class="form-row">
                 <label class="form-label" for="description">Description:</label>
