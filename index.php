@@ -1,14 +1,36 @@
 <?php
 
-// Assuming 'data.json' is your JSON file
-$jsonData = file_get_contents('createOrder_data.json');
-$data = json_decode($jsonData, true);
+$jsonFilePath = 'createOrder_data.json';
+$jsonData = file_get_contents($jsonFilePath);
 
-// Check if the form has been submitted
 if (isset($_GET['action']) && $_GET['action'] == 'getFormData') {
     header('Content-Type: application/json');
-    $jsonData = file_get_contents('createOrder_data.json');
+    $jsonData = file_get_contents($jsonFilePath);
     echo $jsonData;
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $formData = [
+        'project_id' => $_POST['project_id'] ?? '',
+        'payCurrency' => $_POST['payCurrency'] ?? '',
+        'payAmount' => $_POST['payAmount'] ?? '',
+        'receiveCurrency' => $_POST['receiveCurrency'] ?? '',
+        'receiveAmount' => $_POST['receiveAmount'] ?? '',
+        'description' => $_POST['description'] ?? '',
+        'lang' => $_POST['lang'] ?? '',
+        'payNetworkName' => $_POST['payNetworkName'] ?? '',
+        'payerName' => $_POST['payerName'] ?? '',
+        'payerSurname' => $_POST['payerSurname'] ?? '',
+        'payerEmail' => $_POST['payerEmail'] ?? '',
+        'payerDateOfBirth' => $_POST['payerDateOfBirth'] ?? ''
+    ];
+
+    // Save the form data to the JSON file
+    file_put_contents($jsonFilePath, json_encode($formData));
+    
+    // Optional: Redirect to prevent form resubmission on page refresh
+    header("Location: ".$_SERVER['PHP_SELF']);
     exit();
 }
 ?>
