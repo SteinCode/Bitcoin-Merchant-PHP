@@ -187,25 +187,18 @@ li {
   transform: translateX(0); /* Moves window into view */
 }
 
-.log-debug {
-  color: blue;
+.log-header {
+  font-size: 13px;
+  font-weight: 600;
 }
-.log-info {
-  color: green;
-}
-.log-warning {
-  color: orange;
-}
-.log-notice {
-  color: darkcyan;
-}
-.log-error {
-  color: red;
+
+.log-message {
+  padding: 7px 14px;
+  word-wrap: break-word;
 }
 
 #debugLogWindow {
   overflow-y: auto;
-  padding: 10px;
 }
 
 #debugLogWindow div {
