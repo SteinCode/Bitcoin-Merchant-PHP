@@ -64,30 +64,33 @@ function displayLogContents(logContents) {
   var debugWindow = document.getElementById("debugLogWindow");
   debugWindow.innerHTML = ""; // Clear previous contents
 
-  logContents.split(/\r?\n/).forEach((entry) => {
-    if (entry) {
-      var div = document.createElement("div");
-      div.classList.add("log-message");
+  logContents
+    .split(/\r?\n/)
+    .reverse()
+    .forEach((entry) => {
+      if (entry) {
+        var div = document.createElement("div");
+        div.classList.add("log-message");
 
-      // Extract the header (date and type) and the message body
-      var headerMatch = entry.match(/^\[(.*?)\] \[(.*?)\]/);
-      if (headerMatch) {
-        var header = document.createElement("div");
-        header.textContent = headerMatch[0]; // Contains the date and type
-        header.classList.add("log-header");
-        div.appendChild(header);
+        // Extract the header (date and type) and the message body
+        var headerMatch = entry.match(/^\[(.*?)\] \[(.*?)\]/);
+        if (headerMatch) {
+          var header = document.createElement("div");
+          header.textContent = headerMatch[0]; // Contains the date and type
+          header.classList.add("log-header");
+          div.appendChild(header);
 
-        var message = document.createElement("div");
-        message.textContent = entry.substring(headerMatch[0].length).trim(); // The rest of the log message
-        div.appendChild(message);
-      } else {
-        // If the regular expression does not match, treat the whole entry as a message
-        div.textContent = entry;
+          var message = document.createElement("div");
+          message.textContent = entry.substring(headerMatch[0].length).trim(); // The rest of the log message
+          div.appendChild(message);
+        } else {
+          // If the regular expression does not match, treat the whole entry as a message
+          div.textContent = entry;
+        }
+
+        debugWindow.appendChild(div);
       }
-
-      debugWindow.appendChild(div);
-    }
-  });
+    });
 }
 
 // Call fetchLogContents when the debug log window is opened
