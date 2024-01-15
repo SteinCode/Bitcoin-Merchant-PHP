@@ -25,6 +25,7 @@ body {
   left: 0;
   background-color: #fff;
   padding: 0 20px; /* Keep padding to prevent content from touching screen edges */
+  z-index: 1000; /* Ensures it's on top of other content */
 }
 
 .logo-container {
@@ -75,13 +76,14 @@ body {
   border-radius: 8px;
   display: flex;
   flex-flow: column;
-  margin: 12px 0 24px;
   padding: 20px;
   width: 100%;
   min-height: 400px;
   max-width: 500px;
   justify-content: center;
   align-items: center;
+  top: calc(53% - (100vh - 70px) / 2 - 20px);
+  position: relative;
 }
 
 /* FORM */
@@ -148,6 +150,7 @@ textarea {
 
 ol {
   padding: 0px;
+  margin: 0px;
 }
 
 li {
@@ -156,4 +159,30 @@ li {
 
 .logo-img {
   min-width: 200px;
+}
+
+/* Header windows */
+.side-window {
+  position: fixed;
+  width: 300px; /* Adjust as needed */
+  height: calc(100% - 70px); /* Full height minus navigation bar height */
+  top: 70px; /* Set to the height of the navigation bar */
+  background-color: #fff;
+  z-index: 1000; /* Ensures it's on top of other content */
+  transition: transform 0.5s; /* Smooth sliding animation */
+  overflow-y: auto; /* Scroll if content is too long */
+}
+
+.left-window {
+  left: 0;
+  transform: translateX(-100%); /* Starts off-screen */
+}
+
+.right-window {
+  right: 0;
+  transform: translateX(100%); /* Starts off-screen */
+}
+
+.show-window {
+  transform: translateX(0); /* Moves window into view */
 }

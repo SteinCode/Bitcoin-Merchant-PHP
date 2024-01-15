@@ -39,25 +39,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <title>Sample Merchant client</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js" defer></script> <!-- JavaScript file included -->
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header class="header-container">
-    <nav class="navigation-menu">
-        <ul class="header-nav-list header-nav-list-left">
-            <li class="header-list-item"><a class="header-link" href="orders.php">Debug log</a></li>
-        </ul>
-        <div class="logo-container">
-            <a class="logo-url" href="https://spectrocoin.com" target="_blank">
-                <img class="logo-img" src="spectrocoin-logo.svg">
-            </a>
-        </div>
-        <ul class="header-nav-list header-nav-list-right">
-            <li class="header-list-item"><a class="header-link" href="orders.php">Orders</a></li>
-        </ul>
-    </nav>
-
+        <nav class="navigation-menu">
+            <ul class="header-nav-list header-nav-list-left">
+                <li class="header-list-item"><a class="header-link" href="debug.php">Debug log</a></li>
+            </ul>
+            <div class="logo-container">
+                <a class="logo-url" href="https://spectrocoin.com" target="_blank">
+                    <img class="logo-img" src="spectrocoin-logo.svg">
+                </a>
+            </div>
+            <ul class="header-nav-list header-nav-list-right">
+                <li class="header-list-item"><a class="header-link" href="orders.php">Orders</a></li>
+            </ul>
+        </nav>
     </header>
+    <!-- Debug Log Window -->
+    <div id="debugLogWindow" class="side-window left-window">
+        <!-- Content for Debug Log Window -->
+    </div>
+
+    <!-- Orders Window -->
+    <div id="ordersWindow" class="side-window right-window">
+        <!-- Content for Orders Window -->
+    </div>
     <div class="main-section">
         <p>This is a sample of <a href="https://spectrocoin.com" target="_blank">SpectroCoin.com</a> Merchant API usage.</p>
         <form method="post" class="form-container">

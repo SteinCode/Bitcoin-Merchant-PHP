@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   fetchFormData();
+  attachLinkEventHandlers();
+  setupEscapeKeyListener();
 });
 
 function fetchFormData() {
@@ -34,8 +36,41 @@ function toggleVerifiedPayerFields() {
   fields.style.display = checkbox.checked ? "block" : "none";
 }
 
-function toggleDescription() {
-  var checkbox = document.getElementById("verifiedPayersOnly");
-  var fields = document.getElementById("verifiedPayerFields");
-  fields.style.display = checkbox.checked ? "block" : "none";
+function attachLinkEventHandlers() {
+  attachLinkEventHandler("debug.php", "debugLogWindow");
+  attachLinkEventHandler("orders.php", "ordersWindow");
+}
+
+function attachLinkEventHandler(href, windowId) {
+  var link = document.querySelector(`.header-link[href="${href}"]`);
+  if (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault(); // Prevent default link behavior
+      toggleWindow(windowId);
+    });
+  }
+}
+
+function toggleWindow(windowId) {
+  var windowElement = document.getElementById(windowId);
+  if (windowElement) {
+    windowElement.classList.toggle("show-window");
+  }
+}
+
+function setupEscapeKeyListener() {
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeAllWindows();
+    }
+  });
+}
+
+function closeAllWindows() {
+  var windows = document.querySelectorAll(".side-window");
+  windows.forEach(function (window) {
+    if (window.classList.contains("show-window")) {
+      window.classList.remove("show-window");
+    }
+  });
 }
