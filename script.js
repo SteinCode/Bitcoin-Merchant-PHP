@@ -51,10 +51,43 @@ function attachLinkEventHandler(href, windowId) {
   }
 }
 
+function fetchLogContents() {
+  fetch("index.php?action=getLogContents")
+    .then((response) => response.text())
+    .then((logContents) => {
+      displayLogContents(logContents);
+    })
+    .catch((error) => console.error("Error fetching log contents:", error));
+}
+
+function displayLogContents(logContents) {
+  var debugWindow = document.getElementById("debugLogWindow");
+  debugWindow.innerHTML = ""; // Clear previous contents
+
+  // Split log entries and process each one
+  logContents.split(/\r?\n/).forEach((entry) => {
+    if (entry) {
+      var div = document.createElement("div");
+      div.textContent = entry;
+      // Add class based on log type
+      if (entry.includes("[DEBUG]")) div.classList.add("log-debug");
+      else if (entry.includes("[INFO]")) div.classList.add("log-info");
+      else if (entry.includes("[WARNING]")) div.classList.add("log-warning");
+      else if (entry.includes("[NOTICE]")) div.classList.add("log-notice");
+      else if (entry.includes("[ERROR]")) div.classList.add("log-error");
+      debugWindow.appendChild(div);
+    }
+  });
+}
+
+// Call fetchLogContents when the debug log window is opened
 function toggleWindow(windowId) {
   var windowElement = document.getElementById(windowId);
   if (windowElement) {
     windowElement.classList.toggle("show-window");
+    if (windowId === "debugLogWindow") {
+      fetchLogContents();
+    }
   }
 }
 

@@ -55,3 +55,17 @@ function writeToLog($message, $messageType = 'INFO') {
 
     file_put_contents($logFile, $formattedMessage, FILE_APPEND | LOCK_EX);
 }
+
+function readLogFile() {
+    $logFile = __DIR__ . '/log.txt';
+    
+    if (file_exists($logFile)) {
+        $logContents = file_get_contents($logFile);
+        if (empty($logContents)) {
+            return "No log messages.";
+        }
+        return $logContents;
+    } else {
+        return "Log file not found.";
+    }
+}

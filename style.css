@@ -82,7 +82,7 @@ body {
   max-width: 500px;
   justify-content: center;
   align-items: center;
-  top: calc(53% - (100vh - 70px) / 2 - 20px);
+  top: 70px;
   position: relative;
 }
 
@@ -115,7 +115,6 @@ body {
 
 textarea {
   font-size: 12px;
-  width: 100%;
   min-height: 70px;
   resize: vertical;
   max-height: 180px;
@@ -164,13 +163,14 @@ li {
 /* Header windows */
 .side-window {
   position: fixed;
-  width: 300px; /* Adjust as needed */
+  width: 340px; /* Adjust as needed */
   height: calc(100% - 70px); /* Full height minus navigation bar height */
   top: 70px; /* Set to the height of the navigation bar */
   background-color: #fff;
   z-index: 1000; /* Ensures it's on top of other content */
   transition: transform 0.5s; /* Smooth sliding animation */
   overflow-y: auto; /* Scroll if content is too long */
+  font-size: 12px;
 }
 
 .left-window {
@@ -185,4 +185,29 @@ li {
 
 .show-window {
   transform: translateX(0); /* Moves window into view */
+}
+
+.log-debug {
+  color: blue;
+}
+.log-info {
+  color: green;
+}
+.log-warning {
+  color: orange;
+}
+.log-notice {
+  color: darkcyan;
+}
+.log-error {
+  color: red;
+}
+
+#debugLogWindow {
+  overflow-y: auto;
+  padding: 10px;
+}
+
+#debugLogWindow div {
+  margin-bottom: 5px;
 }

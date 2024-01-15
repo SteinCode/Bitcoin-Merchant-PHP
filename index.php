@@ -1,5 +1,7 @@
 <?php
 
+include_once('debug_helpers.php');
+
 $jsonFilePath = 'createOrder_data.json';
 $jsonData = file_get_contents($jsonFilePath);
 
@@ -33,6 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: ".$_SERVER['PHP_SELF']);
     exit();
 }
+
+if (isset($_GET['action']) && $_GET['action'] == 'getLogContents') {
+    echo readLogFile();
+    exit();
+}
+
 ?>
 
 <html>
