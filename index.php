@@ -42,11 +42,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="script.js" defer></script> <!-- JavaScript file included -->
 </head>
 <body>
-    <div class="logo-container">
-        <a class="logo-url" href="https://spectrocoin.com" target="_blank">
-            <img class="logo-img" src="spectrocoin-logo.svg">
-        </a>
-    </div>
+    <header class="header-container">
+    <nav class="navigation-menu">
+        <ul class="header-nav-list header-nav-list-left">
+            <li class="header-list-item"><a class="header-link" href="orders.php">Debug log</a></li>
+        </ul>
+        <div class="logo-container">
+            <a class="logo-url" href="https://spectrocoin.com" target="_blank">
+                <img class="logo-img" src="spectrocoin-logo.svg">
+            </a>
+        </div>
+        <ul class="header-nav-list header-nav-list-right">
+            <li class="header-list-item"><a class="header-link" href="orders.php">Orders</a></li>
+        </ul>
+    </nav>
+
+    </header>
     <div class="main-section">
         <p>This is a sample of <a href="https://spectrocoin.com" target="_blank">SpectroCoin.com</a> Merchant API usage.</p>
         <form method="post" class="form-container">
@@ -120,8 +131,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="date" id="payerDateOfBirth" name="payerDateOfBirth" class="form-input">
                 </div>
             </div>
-            <div class="form-row">
-                <input class="save_button" type="submit" value="Save">
+            <div class="form-row save-button-row">
+                <input class="save-button" type="submit" value="Save">
             </div>
         </form>
         <ol>

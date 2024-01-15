@@ -15,6 +15,61 @@ body {
   height: 100vh;
 }
 
+.navigation-menu {
+  display: flex;
+  align-items: center;
+  min-height: 70px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  padding: 0 20px; /* Keep padding to prevent content from touching screen edges */
+}
+
+.logo-container {
+  position: absolute; /* Positioning logo absolutely within the parent */
+  left: 50%; /* Centering logo */
+  transform: translateX(-50%); /* Ensuring exact center */
+}
+
+.header-nav-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header-nav-list.header-nav-list-left {
+  margin-right: auto;
+}
+
+.header-nav-list.header-nav-list-right {
+  margin-left: auto;
+}
+
+.header-list-item {
+  margin: 0 10px;
+}
+
+.header-link {
+  color: #102d6f;
+  text-decoration: none;
+  transition: all 0.1s, visibility 0s;
+  line-height: 18px;
+  display: inline;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.header-link:hover {
+  color: #305cea;
+}
+
+.header-container ul {
+  list-style: none;
+}
+
 .main-section {
   background-color: #fff;
   border-radius: 8px;
@@ -53,15 +108,15 @@ body {
 
 .form-input,
 .form-textarea {
-  flex-grow: 1; /* Input/Textarea takes the remaining space */
+  flex-grow: 1;
 }
 
 textarea {
   font-size: 12px;
   width: 100%;
   min-height: 70px;
-  resize: vertical; /* Only allow vertical resizing */
-  max-height: 260px; /* Maximum height when resized */
+  resize: vertical;
+  max-height: 180px;
 }
 
 .form-input input {
@@ -70,10 +125,9 @@ textarea {
   min-height: 26px;
 }
 
-.save_button {
+.save-button {
   text-transform: capitalize;
-  align-self: center;
-  align-items: center;
+
   background: #4972f4;
   background-color: rgb(73, 114, 244);
   border: 2px solid #4972f4;
@@ -85,6 +139,11 @@ textarea {
   outline: none;
   padding: 8px 20px;
   text-decoration: none;
+}
+
+.save-button-row {
+  align-items: center;
+  justify-content: center;
 }
 
 ol {
