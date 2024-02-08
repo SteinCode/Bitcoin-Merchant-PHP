@@ -28,10 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'payerDateOfBirth' => $_POST['payerDateOfBirth'] ?? ''
     ];
 
-    // Save the form data to the JSON file
     file_put_contents($jsonFilePath, json_encode($formData));
     
-    // Optional: Redirect to prevent form resubmission on page refresh
     header("Location: ".$_SERVER['PHP_SELF']);
     exit();
 }

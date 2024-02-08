@@ -1,1 +1,14 @@
-{"project_id":"123456asdasdasdasdasdasd","payCurrency":"ETH","payAmount":"0.0003468","receiveCurrency":"GBP","receiveAmount":"9.99","description":"Your specified payment descriptionasdasdadas","lang":"en","payNetworkName":"bitcoin","payerName":"Name","payerSurname":"Surname","payerEmail":"email@example.com","payerDateOfBirth":"1980-01-01"}
+{
+  "project_id": "ea8f7c76-1204-4437-871e-4564b6bbf49d",
+  "payCurrency": "BTC",
+  "payAmount": "",
+  "receiveCurrency": "BTC",
+  "receiveAmount": "0.01",
+  "description": "Your specified payment descriptionasdasdadas",
+  "lang": "en",
+  "payNetworkName": "bitcoin",
+  "payerName": "Name",
+  "payerSurname": "Surname",
+  "payerEmail": "email@example.com",
+  "payerDateOfBirth": "1980-01-01"
+}

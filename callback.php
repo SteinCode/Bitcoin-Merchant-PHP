@@ -26,10 +26,11 @@ function processPostData($postData) {
 }
 
 // Process the POST data
-$filteredPostData = processPostData($_POST);
+// $filteredPostData = processPostData($_POST);
 
 // Debugging: Log and print the filtered data
-writeToLog($filteredPostData, 'DEBUG');
+// writeToLog($filteredPostData, 'DEBUG');
+writeToLog($_POST, 'DEBUG');
 printToBrowserConsole($filteredPostData);
 
 // if ($callback != null){
