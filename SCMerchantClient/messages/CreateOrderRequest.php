@@ -3,9 +3,9 @@
 class CreateOrderRequest
 {
 	private $orderId;
-	private $payCurrency;
+	private $payCurrencyCode;
 	private $payAmount;
-	private $receiveCurrency;
+	private $receiveCurrencyCode;
 	private $receiveAmount;
 	private $description;
 	private $callbackUrl;
@@ -22,7 +22,7 @@ class CreateOrderRequest
 	 * @param $orderId
 	 * @param $payCurrency - Customer pay amount calculation currency
 	 * @param $payAmount - Customer pay amount in calculation currency
-	 * @param $receiveCurrency - Merchant receive amount calculation currency
+	 * @param $receiveCurrencyCode - Merchant receive amount calculation currency
 	 * @param $receiveAmount - Merchant receive amount in calculation currency
 	 * @param $description
 	 * @param $culture
@@ -33,12 +33,12 @@ class CreateOrderRequest
 	 * @param $payerSurname
 	 * @param $payerEmail
 	 */
-	function __construct($orderId, $payCurrency, $payAmount, $receiveCurrency, $receiveAmount, $description, $callbackUrl, $successUrl, $failureUrl, $lang, $payNetworkName, $payerName = null, $payerSurname = null, $payerEmail = null, $payerDateOfBirth = null)
+	function __construct($orderId, $payCurrencyCode, $payAmount, $receiveCurrencyCode, $receiveAmount, $description, $callbackUrl, $successUrl, $failureUrl, $lang, $payNetworkName, $payerName = null, $payerSurname = null, $payerEmail = null, $payerDateOfBirth = null)
 	{
 		$this->orderId = $orderId;
-		$this->payCurrency = $payCurrency;
+		$this->payCurrencyCode = $payCurrencyCode;
 		$this->payAmount = $payAmount;
-		$this->receiveCurrency = $receiveCurrency;
+		$this->receiveCurrencyCode = $receiveCurrencyCode;
 		$this->receiveAmount = $receiveAmount;
 		$this->description = $description;
 		$this->callbackUrl = $callbackUrl;
@@ -63,9 +63,9 @@ class CreateOrderRequest
 	/**
 	 * @return string
 	 */
-	public function getPayCurrency()
+	public function getPayCurrencyCode()
 	{
-		return $this->payCurrency;
+		return $this->payCurrencyCode == null ? '' : $this->payCurrencyCode;
 	}
 
 	/**
@@ -87,9 +87,9 @@ class CreateOrderRequest
 	/**
 	 * @return string
 	 */
-	public function getReceiveCurrency()
+	public function getReceiveCurrencyCode()
 	{
-		return $this->receiveCurrency;
+		return $this->receiveCurrencyCode == null ? '' : $this->receiveCurrencyCode;
 	}
 
 	/**

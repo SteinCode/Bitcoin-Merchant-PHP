@@ -10,7 +10,7 @@
 include_once('constants.php');
 include_once('SCMerchantClient/SCMerchantClient.php');
 
-$project_id = isset($_POST['project_id']) ? $_POST['project_id'] : PROJECT_ID; // Use default PROJECT_ID if not set
+$project_id = $data['project_id'];
 
 $orderId = "Order" . rand(1, 10000);// "Orderxxx";
 $payCurrency = 'BTC'; // Customer pay amount calculation currency
@@ -25,7 +25,7 @@ $payerSurname = "Surname"; //OPTIONAL - Last name of the payer/customer.
 $payerEmail = "your-email@gmail.com"; // OPTIONAL - Email address of the payer/customer.
 $payerDateOfBirth = "1980-01-01"; // OPTIONAL - Date of birth of the payer/customer.
 
-$scMerchantClient = new SCMerchantClient(SC_API_URL, $project_id);
+$scMerchantClient = new SCMerchantClient(SC_API_URL, $project_id, CLIENT_ID, CLIENT_SECRET, AUTH_URL);
 
 $createOrderRequest = new CreateOrderRequest($orderId, $payCurrency, $payAmount, $receiveCurrency, $receiveAmount, $description, SC_MERCHANT_ORDER_CALLBACK_URL, SC_MERCHANT_ORDER_SUCCESS_URL, SC_MERCHANT_ORDER_FAILURE_URL, $lang, $payNetworkName, $payerName, $payerSurname, $payerEmail, $payerDateOfBirth);
 

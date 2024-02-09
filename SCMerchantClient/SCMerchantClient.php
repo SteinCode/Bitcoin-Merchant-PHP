@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Created by UAB Spectro Fincance.
- * This is a sample SpectroCoin Merchant v1.1 API PHP client
- */
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
@@ -15,7 +10,7 @@ include_once('data/OrderStatusEnum.php');
 include_once('data/OrderCallback.php');
 include_once('messages/CreateOrderRequest.php');
 include_once('messages/CreateOrderResponse.php');
-include_once('./debug_helpers.php');
+include_once('./utilities.php');
 
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -26,20 +21,28 @@ class SCMerchantClient
 
 	private $merchantApiUrl;
 	private $projectId;
-	private $debug;
+
+	private $clientId;
+	private $clientSecret;
+	private $authUrl;
+
+	private $accessTokenData;
 
 	protected $client;
 
 	/**
 	 * @param $merchantApiUrl
 	 * @param $projectId
-	 * @param bool $debug
 	 */
-	function __construct($merchantApiUrl, $projectId, $debug = false)
+	function __construct($merchantApiUrl, $projectId, $clientId, $clientSecret, $authUrl, $accessTokenData = null)
 	{
 		$this->merchantApiUrl = $merchantApiUrl;
 		$this->projectId = $projectId;
-		$this->debug = $debug;
+		$this->clientId = $clientId;
+		$this->clientSecret = $clientSecret;
+		$this->authUrl = $authUrl;
+		$this->accessTokenData = $accessTokenData;
+
 		$this->client = new Client();
 	}
 
@@ -48,6 +51,12 @@ class SCMerchantClient
 	 * @return ApiError|CreateOrderResponse
 	 */
 	public function createOrder(CreateOrderRequest $request){
+		$accessTokenArray = $this->getAccessTokenArray();
+
+		if (!$accessTokenArray) {
+			return new ApiError('AuthError', 'Failed to obtain access token');
+		}
+
 		$payload = array(
 			"callbackUrl" => $request->getCallbackUrl(),
 			"description" => $request->getDescription(),
@@ -55,7 +64,7 @@ class SCMerchantClient
 			"lang" => $request->getLang(),
 			"orderId" => $request->getOrderId(),
 			"payAmount" => $request->getPayAmount(),
-			"payCurrency" => $request->getReceiveCurrency(),
+			"payCurrencyCode" => $request->getPayCurrencyCode(),
 			"payNetworkName" => $request->getPayNetworkName(),
 			"payerDateOfBirth" => $request->getPayerDateOfBirth(),
 			"payerEmail" => $request->getPayerEmail(),
@@ -63,15 +72,18 @@ class SCMerchantClient
 			"payerSurname" => $request->getPayerSurname(),
 			"projectId" => $this->projectId,
 			"receiveAmount" => $request->getReceiveAmount(),
-			"receiveCurrency" => $request->getReceiveCurrency(),
+			"receiveCurrencyCode" => $request->getReceiveCurrencyCode(),
 			"successUrl" => $request->getSuccessUrl(),
 		);
 
 		$jsonPayload = json_encode($payload);
 
         try {
-            $response = $this->client->request('POST', $this->merchantApiUrl . '/createOrder', [
-                RequestOptions::HEADERS => ['Content-Type' => 'application/json'],
+            $response = $this->client->request('POST', $this->merchantApiUrl . '/merchants/orders/create', [
+                RequestOptions::HEADERS => [
+					'Content-Type' => 'application/json',
+					'Authorization' => 'Bearer ' . $accessTokenArray['access_token']
+			],
                 RequestOptions::BODY => $jsonPayload
             ]);
 
@@ -100,8 +112,52 @@ class SCMerchantClient
         } catch (GuzzleException $e) {
             return new ApiError($e->getCode(), $e->getMessage());
         }
-		echo "Invalid Response: " . "No valid response received.". "\n";
         return new ApiError('Invalid Response', 'No valid response received.');
+	}
+
+		/**
+	 * @param $merchantApiUrl
+	 * @param $projectId
+	 * @param bool $debug
+	 * @return SCMerchantClient
+	 */
+	public function getAccessTokenArray() {
+		$currentTime = time();
+
+		if (isset($_SESSION['encryptedAccessTokenData'])) {
+			$encryptedTokenData = $_SESSION['encryptedAccessTokenData'];
+			$this->accessTokenData = json_decode(decrypt($encryptedTokenData, 'your_secret_encryption_key'), true);
+		}
+	
+		if ($this->accessTokenData && isset($this->accessTokenData['expires_at']) && $currentTime < ($this->accessTokenData['expires_at'] - 60)) {
+			return $this->accessTokenData;
+		}
+	
+		try {
+			$response = $this->client->post($this->authUrl, [
+				'form_params' => [
+					'grant_type' => 'client_credentials',
+					'client_id' => $this->clientId,
+					'client_secret' => $this->clientSecret,
+				],
+			]);
+	
+			$data = json_decode($response->getBody(), true);
+			if (!isset($data['access_token'], $data['expires_in'])) {
+				echo 'Invalid token response';
+				return null;
+			}
+	
+			$data['expires_at'] = $currentTime + $data['expires_in'];
+			$this->accessTokenData = $data;
+
+			$_SESSION['encryptedAccessTokenData'] = encrypt(json_encode($data), 'your_secret_encryption_key');
+
+			return $this->accessTokenData;
+		} catch (GuzzleException $e) {
+			echo 'Failed to get access token: ' . $e->getMessage();
+			return null;
+		}
 	}
 
 
@@ -134,9 +190,9 @@ class SCMerchantClient
 				'merchantId' => $c->getMerchantId(),
 				'apiId' => $c->getApiId(),
 				'orderId' => $c->getOrderId(),
-				'payCurrency' => $c->getPayCurrency(),
+				'payCurrency' => $c->getPayCurrencyCode(),
 				'payAmount' => $c->getPayAmount(),
-				'receiveCurrency' => $c->getReceiveCurrency(),
+				'receiveCurrency' => $c->getReceiveCurrencyCode(),
 				'receiveAmount' => $c->getReceiveAmount(),
 				'receivedAmount' => $c->getReceivedAmount(),
 				'description' => $c->getDescription(),

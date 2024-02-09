@@ -69,3 +69,15 @@ function readLogFile() {
         return "Log file not found.";
     }
 }
+
+function encrypt($data, $key) {
+    $ivLength = openssl_cipher_iv_length($cipher = "AES-128-CBC");
+    $iv = openssl_random_pseudo_bytes($ivLength);
+    $encryptedData = openssl_encrypt($data, $cipher, $key, 0, $iv);
+    return base64_encode($encryptedData . '::' . $iv);
+}
+
+function decrypt($data, $key) {
+    list($encryptedData, $iv) = explode('::', base64_decode($data), 2);
+    return openssl_decrypt($encryptedData, "AES-128-CBC", $key, 0, $iv);
+}
