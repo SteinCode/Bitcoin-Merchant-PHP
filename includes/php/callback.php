@@ -1,10 +1,9 @@
 <?php
 
 include_once('constants.php');
-include_once('SCMerchantClient/SCMerchantClient.php');
-include_once('debug_helpers.php');
+include_once('utitlities.php');
+include_once('../../SCMerchantClient/SCMerchantClient.php');
 
-// Function to process $_POST data
 function processPostData($postData) {
     $expectedFields = [
         'merchantId', 'apiId', 'userId', 'merchantApiId', 'orderId', 

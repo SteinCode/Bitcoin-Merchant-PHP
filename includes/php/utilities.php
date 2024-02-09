@@ -22,24 +22,24 @@ function printToBrowserConsole($data) {
  * @param $message
  * @param string $messageType | INFO(default), DEBUG, WARNING, NOTICE, ERROR
 */
-function writeToLog($message, $messageType = 'INFO') {
-    $logFile = __DIR__ . '/log.txt';
+function writeToLog($message, $messageType = 'info') {
+    $logFile = __DIR__ . '/../../log.txt';
 
     switch ($messageType) {
-        case 'INFO':
-            $messagePrefix = "INFO";
+        case 'info':
+            $messagePrefix = "info";
             break;
-        case 'DEBUG':
-            $messagePrefix = "DEBUG";
+        case 'debug':
+            $messagePrefix = "debug";
             break;
-        case 'WARNING':
-            $messagePrefix = "WARNING";
+        case 'warning':
+            $messagePrefix = "warning";
             break;
-        case 'NOTICE':
-            $messagePrefix = "NOTICE";
+        case 'notice':
+            $messagePrefix = "notice";
             break;
         default:
-            $messagePrefix = "ERROR";
+            $messagePrefix = "error";
             break;
     }
 
@@ -57,7 +57,7 @@ function writeToLog($message, $messageType = 'INFO') {
 }
 
 function readLogFile() {
-    $logFile = __DIR__ . '/log.txt';
+    $logFile = __DIR__ . '/../../log.txt';
     
     if (file_exists($logFile)) {
         $logContents = file_get_contents($logFile);

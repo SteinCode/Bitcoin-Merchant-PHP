@@ -25,10 +25,11 @@ class SCMerchantClient
 	private $clientId;
 	private $clientSecret;
 	private $authUrl;
+	private $encryptionKey;
 
 	private $accessTokenData;
 
-	protected $client;
+	protected $guzzleClient;
 
 	/**
 	 * @param $merchantApiUrl
@@ -43,7 +44,7 @@ class SCMerchantClient
 		$this->authUrl = $authUrl;
 		$this->accessTokenData = $accessTokenData;
 
-		$this->client = new Client();
+		$this->guzzleClient = new Client();
 	}
 
 	/**
@@ -79,7 +80,7 @@ class SCMerchantClient
 		$jsonPayload = json_encode($payload);
 
         try {
-            $response = $this->client->request('POST', $this->merchantApiUrl . '/merchants/orders/create', [
+            $response = $this->guzzleClient->request('POST', $this->merchantApiUrl . '/merchants/orders/create', [
                 RequestOptions::HEADERS => [
 					'Content-Type' => 'application/json',
 					'Authorization' => 'Bearer ' . $accessTokenArray['access_token']
@@ -115,50 +116,57 @@ class SCMerchantClient
         return new ApiError('Invalid Response', 'No valid response received.');
 	}
 
-		/**
-	 * @param $merchantApiUrl
-	 * @param $projectId
-	 * @param bool $debug
-	 * @return SCMerchantClient
-	 */
-	public function getAccessTokenArray() {
-		$currentTime = time();
+    public function getAccessTokenArray() {
+        $currentTime = time();
 
-		if (isset($_SESSION['encryptedAccessTokenData'])) {
-			$encryptedTokenData = $_SESSION['encryptedAccessTokenData'];
-			$this->accessTokenData = json_decode(decrypt($encryptedTokenData, 'your_secret_encryption_key'), true);
-		}
-	
-		if ($this->accessTokenData && isset($this->accessTokenData['expires_at']) && $currentTime < ($this->accessTokenData['expires_at'] - 60)) {
-			return $this->accessTokenData;
-		}
-	
-		try {
-			$response = $this->client->post($this->authUrl, [
-				'form_params' => [
-					'grant_type' => 'client_credentials',
-					'client_id' => $this->clientId,
-					'client_secret' => $this->clientSecret,
-				],
-			]);
-	
-			$data = json_decode($response->getBody(), true);
-			if (!isset($data['access_token'], $data['expires_in'])) {
-				echo 'Invalid token response';
-				return null;
-			}
-	
-			$data['expires_at'] = $currentTime + $data['expires_in'];
-			$this->accessTokenData = $data;
+        $this->accessTokenData = $this->retrieveAccessTokenData();
 
-			$_SESSION['encryptedAccessTokenData'] = encrypt(json_encode($data), 'your_secret_encryption_key');
+        if ($this->isTokenValid($currentTime)) {
+            return $this->accessTokenData;
+        }
 
-			return $this->accessTokenData;
-		} catch (GuzzleException $e) {
-			echo 'Failed to get access token: ' . $e->getMessage();
-			return null;
-		}
-	}
+        return $this->refreshAccessToken($currentTime);
+    }
+
+    private function retrieveAccessTokenData() {
+        if (isset($_SESSION['encryptedAccessTokenData'])) {
+            $encryptedTokenData = $_SESSION['encryptedAccessTokenData'];
+            return json_decode(decrypt($encryptedTokenData, $this->encryptionKey), true);
+        }
+        return null;
+    }
+
+    private function isTokenValid($currentTime) {
+        return $this->accessTokenData && isset($this->accessTokenData['expires_at']) && $currentTime < ($this->accessTokenData['expires_at'] - 60);
+    }
+
+    private function refreshAccessToken($currentTime) {
+        try {
+            $response = $this->guzzleClient->post($this->authUrl, [
+                'form_params' => [
+                    'grant_type' => 'client_credentials',
+                    'client_id' => $this->clientId,
+                    'client_secret' => $this->clientSecret,
+                ],
+            ]);
+
+            $data = json_decode($response->getBody(), true);
+            if (!isset($data['access_token'], $data['expires_in'])) {
+                writeToLog('Invalid access token response: ' . $response->getBody());
+                return null;
+            }
+
+            $data['expires_at'] = $currentTime + $data['expires_in'];
+            $this->accessTokenData = $data;
+
+            $_SESSION['encryptedAccessTokenData'] = encrypt(json_encode($data), $this->encryptionKey);
+
+            return $this->accessTokenData;
+        } catch (GuzzleException $e) {
+            writeToLog('Failed to get access token: ' . $e->getMessage());
+            return null;
+        }
+    }
 
 
 	/**

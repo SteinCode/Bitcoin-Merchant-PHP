@@ -1,8 +1,8 @@
 <?php
 
-include_once('utilities.php');
+include_once('includes/php/utilities.php');
 
-$jsonFilePath = 'createOrder_data.json';
+$jsonFilePath = 'includes/json/createOrder_data.json';
 $jsonData = file_get_contents($jsonFilePath);
 
 if (isset($_GET['action']) && $_GET['action'] == 'getFormData') {
@@ -44,8 +44,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'getLogContents') {
 <html>
 <head>
     <title>Sample Merchant client</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="includes/css/style.css">
+    <script src="includes/js/script.js" defer></script>
 </head>
 <body>
     <header class="header-container">
@@ -55,7 +55,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'getLogContents') {
             </ul>
             <div class="logo-container">
                 <a class="logo-url" href="https://spectrocoin.com" target="_blank">
-                    <img class="logo-img" src="spectrocoin-logo.svg">
+                    <img class="logo-img" src="includes/img/spectrocoin-logo.svg">
                 </a>
             </div>
             <ul class="header-nav-list header-nav-list-right">
@@ -150,8 +150,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'getLogContents') {
             </div>
         </form>
         <ol>
-            <li><a href="direct.php">Create merchant order (direct API result usage)</a></li>
-            <li><a href="redirect.php">Create merchant order (redirect to payment page)</a></li>
+            <li><a href="includes/php/direct.php">Create merchant order (direct API result usage)</a></li>
+            <li><a href="includes/php/redirect.php">Create merchant order (redirect to payment page)</a></li>
         </ol>
     </div>
 </body>

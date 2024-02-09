@@ -5,10 +5,10 @@
 session_start();
 
 include_once('constants.php');
-include_once('SCMerchantClient/SCMerchantClient.php');
+include_once('../../SCMerchantClient/SCMerchantClient.php');
 
 
-$jsonData = file_get_contents('createOrder_data.json'); // Update the path to your JSON file
+$jsonData = file_get_contents('../json/createOrder_data.json'); // Update the path to your JSON file
 $data = json_decode($jsonData, true); // Convert JSON string to PHP array
 
 $project_id = $data['project_id'];
@@ -42,12 +42,12 @@ $createOrderRequest = new CreateOrderRequest($orderId, $payCurrency, $payAmount,
 $createOrderResponse = $scMerchantClient->createOrder($createOrderRequest);
 
 if ($createOrderResponse instanceof ApiError) {
-	writeToLog('Error occurred. ' . $createOrderResponse->getCode() . ': ' . $createOrderResponse->getMessage());
+	writeToLog('Error occurred. ' . $createOrderResponse->getCode() . ': ' . $createOrderResponse->getMessage(), 'error');
 } else if ($createOrderResponse instanceof CreateOrderResponse) {
 	header('Location: '.$createOrderResponse->getRedirectUrl());
 	exit();
 } else {
-	writeToLog('Unknown error occurred.');
+	writeToLog('Unknown error occurred.', 'error');
 }
 
 ?>
